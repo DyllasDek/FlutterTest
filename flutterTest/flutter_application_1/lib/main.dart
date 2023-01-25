@@ -2,54 +2,80 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+// ignore: prefer_const_constructors
+void main() => runApp(MaterialApp(
+      home: const UserPanel(),
+    ));
 
-class MyApp extends StatelessWidget {
+class UserPanel extends StatefulWidget {
+  const UserPanel({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        theme: ThemeData(primaryColor: Colors.redAccent),
-        home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Test'),
-            centerTitle: true,
-          ),
-          body: Container(
-            color: Colors.red,
-            child: Image(image: AssetImage('assets/1.png')),
-            //margin: EdgeInsets.all(20.5),
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-            padding: EdgeInsets.all(10),
-          ),
-          //Center(
-          //child: Image(image: AssetImage('assets/1.png')),
-          //   ),
-          /*
-          Center(
-              child: ElevatedButton(
-            onPressed: () {
-              print('test');
-            },
-            child: Text('Test'),
-          )*/
-          /*
-              FlatButton(
-                  onPressed: () {
-                    print('1');
-                  },
-                  child: Text('Press on me'),
-                  color: Colors.amber)
-              */
-          // Icon(Icons.settings_applications, size: 45, color: Colors.blueGrey),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              print('Lox');
-            },
-            backgroundColor: Colors.redAccent,
-            child: const Text(
-              'lox',
-              style: TextStyle(fontFamily: 'Frankc'),
+  State<UserPanel> createState() => _UserPanelState();
+}
+
+class _UserPanelState extends State<UserPanel> {
+  int _count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.redAccent,
+      appBar: AppBar(
+        title: const Text('Check time'),
+        centerTitle: true,
+        backgroundColor: Colors.black45,
+      ),
+      body: SafeArea(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                const Padding(padding: EdgeInsets.only(top: 30)),
+                const CircleAvatar(
+                  backgroundImage: AssetImage('assets/1.png'),
+                  radius: 70,
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                const Text(
+                  'Danila Korneenko',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
+                ),
+                Row(
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    const Icon(Icons.mail_outline, size: 25),
+                    const Padding(padding: EdgeInsets.only(left: 10)),
+                    const Text(
+                      'd.korneenko@innopolis.university',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ],
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                Text(
+                  'Движ: $_count',
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
             ),
-          ),
+          ],
         ),
-      );
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.accessible_forward),
+        backgroundColor: Colors.amber,
+        onPressed: () {
+          setState(() {
+            _count++;
+          });
+        },
+      ),
+    );
+  }
 }
